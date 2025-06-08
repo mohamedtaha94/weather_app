@@ -157,136 +157,138 @@ class _WeatherPageState extends State<WeatherPage> {
   Widget build(BuildContext context) {
     
     return 
-    Scaffold(
-      backgroundColor: Colors.black,
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(40.w, 1.20 * kToolbarHeight, 40.w, 20.h),
-        child: Stack(
-          children: [
-            // Background Circles and Box
-            Align(
-              alignment:  AlignmentDirectional(3.w, -0.2.h),
-              child: Container(
-                height: 300.h,
-                width: 300.w,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color.fromARGB(255, 219, 164, 233),
+    SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Padding(
+          padding: EdgeInsets.fromLTRB(20.w, 1.20 * kToolbarHeight, 20.w, 20.h),
+          child: Stack(
+            children: [
+              // Background Circles and Box
+              Align(
+                alignment:  AlignmentDirectional(3.w, -0.2.h),
+                child: Container(
+                  height: 300.h,
+                  width: 300.w,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color.fromARGB(255, 219, 164, 233),
+                  ),
                 ),
               ),
-            ),
-            Align(
-              alignment:  AlignmentDirectional(-3.w, -0.2.h),
-              child: Container(
-                height: 300.h,
-                width: 300.h,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color.fromARGB(255, 219, 164, 233),
+              Align(
+                alignment:  AlignmentDirectional(-3.w, -0.2.h),
+                child: Container(
+                  height: 300.h,
+                  width: 300.h,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color.fromARGB(255, 219, 164, 233),
+                  ),
                 ),
               ),
-            ),
-            Align(
-              alignment:  AlignmentDirectional(0.w, -1.2.h),
-              child: Container(
-                height: 400.h,
-                width: 600.w,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Color.fromARGB(255, 215, 128, 255),
+              Align(
+                alignment:  AlignmentDirectional(0.w, -1.2.h),
+                child: Container(
+                  height: 400.h,
+                  width: 600.w,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Color.fromARGB(255, 215, 128, 255),
+                  ),
                 ),
               ),
-            ),
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 100.0.w, sigmaY: 100.0.h),
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.transparent,
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 100.0.w, sigmaY: 100.0.h),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.transparent,
+                  ),
                 ),
               ),
-            ),
-            // Refresh Indicator
-            RefreshIndicator(
-              onRefresh: _refresh,
-              child: SingleChildScrollView(  // Added ScrollView for overflow handling
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '📍${_weather?.cityName ?? "Loading city.."}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
+              // Refresh Indicator
+              RefreshIndicator(
+                onRefresh: _refresh,
+                child: SingleChildScrollView(  // Added ScrollView for overflow handling
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                           
+                            children: [
+                              Padding(
+                                padding:  EdgeInsets.only(left: 5.0.w),
+                                child: Text(
+                                  '📍${_weather?.cityName ?? "Loading city.."}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 8.h),
-                            Text(
-                              getWelcomeNote(_weather),
-                              style:  TextStyle(
-                                color: Colors.white,
-                                fontSize: 30.sp,
-                                fontWeight: FontWeight.bold,
+                              SizedBox(height: 8.h),
+                              Text(
+                                getWelcomeNote(_weather),
+                                style:  TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Center(
-                              child: Lottie.asset(
+                              Lottie.asset(
                                 getWeatherAnimation(_weather?.id),
                                 repeat: true,
                                 height: 200.h,
                                 width: 200.w,
                               ),
-                            ),
-                            Center(
-                              child: Text(
-                                '${_weather?.temperature.round()}°C',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 40.sp,
-                                  fontWeight: FontWeight.w600,
+                              Center(
+                                child: Text(
+                                  '${_weather?.temperature.round()}°C',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 40.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Center(
-                              child: Text(
-                                'feels like ${_weather?.feelslike.round()}°C',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w300,
+                              Center(
+                                child: Text(
+                                  'feels like ${_weather?.feelslike.round()}°C',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w300,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Center(
-                              child: Text(
-                                (_weather?.mainCondition ?? "").toUpperCase(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25.sp,
-                                  fontWeight: FontWeight.w600,
+                              Center(
+                                child: Text(
+                                  (_weather?.mainCondition ?? "").toUpperCase(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 5.h),
-                            Center(
-                              child: Text(
-                                DateFormat('EEEE d MMM •  hh:mm a').format(
-                                  _weather?.time ?? DateTime.now(),
-                                ),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w500,
+                              SizedBox(height: 5.h),
+                              Center(
+                                child: Text(
+                                  DateFormat('EEEE d MMM •  hh:mm a').format(
+                                    _weather?.time ?? DateTime.now(),
+                                  ),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 30.h),
-                            SingleChildScrollView(scrollDirection: Axis.horizontal,
-                              child: Row(
+                              SizedBox(height: 30.h),
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
@@ -349,15 +351,13 @@ class _WeatherPageState extends State<WeatherPage> {
                                   ),
                                 ],
                               ),
-                            ),
-                             Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5.0.h),
-                              child: Divider(
-                                color: Colors.grey,
+                               Padding(
+                                padding: EdgeInsets.symmetric(vertical: 5.0.h),
+                                child: Divider(
+                                  color: Colors.grey,
+                                ),
                               ),
-                            ),
-                            SingleChildScrollView(scrollDirection:  Axis.horizontal,
-                              child: Row(
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
@@ -416,33 +416,33 @@ class _WeatherPageState extends State<WeatherPage> {
                                   ),
                                 ],
                               ),
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Center(
-                              child: SizedBox(
-                                child: Text(
-                                  getQuoteBasedonWeather(_weather?.id),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Montserrat',
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold,
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Center(
+                                child: SizedBox(
+                                  child: Text(
+                                    getQuoteBasedonWeather(_weather?.id),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
